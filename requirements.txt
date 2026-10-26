@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+pydantic-settings
+python-dotenv
+groq
+sentence-transformers
+scikit-learn
+pytest
+httpx
