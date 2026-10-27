@@ -9,3 +9,4 @@ logs
 data/*.db
 .cache
 tests
+

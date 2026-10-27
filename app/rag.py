@@ -1,4 +1,3 @@
-
 from pathlib import Path
 import os
 
@@ -11,8 +10,6 @@ load_dotenv()
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 KNOWLEDGE_FILE = PROJECT_ROOT / "data" / "support_knowledge.txt"
-
-# Small, general-purpose embedding model.
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 _model = None
@@ -32,8 +29,6 @@ def load_knowledge_base():
         )
 
     text = KNOWLEDGE_FILE.read_text(encoding="utf-8")
-
-    # Split each policy section into a separately retrievable chunk.
     sections = [
         section.strip()
         for section in text.split("\n\n")
@@ -58,12 +53,7 @@ def retrieve_documents(question: str, top_k: int = 3):
         [question],
         normalize_embeddings=True,
     )
-
-    scores = cosine_similarity(
-        query_embedding,
-        _embeddings,
-    )[0]
-
+    scores = cosine_similarity(query_embedding, _embeddings)[0]
     ranked_indices = scores.argsort()[::-1][:top_k]
 
     return [
@@ -81,8 +71,6 @@ def answer_question(question: str):
         raise ValueError("Question cannot be empty.")
 
     documents = retrieve_documents(question, top_k=3)
-
-    # Conservative threshold; tune it later using evaluation examples.
     relevant_documents = [
         doc for doc in documents if doc["score"] >= 0.30
     ]
@@ -107,7 +95,6 @@ def answer_question(question: str):
         raise RuntimeError("GROQ_API_KEY is missing.")
 
     client = Groq(api_key=api_key)
-
     response = client.chat.completions.create(
         model="openai/gpt-oss-20b",
         messages=[
@@ -135,8 +122,30 @@ def answer_question(question: str):
         temperature=0,
     )
 
-    answer = response.choices[0].message.content or (
-        "I couldn't generate an answer. Please contact human support."
+    answer = (
+        response.choices[0].message.content or ""
+    ).strip()
+    if not answer:
+        answer = (
+            "I couldn't generate a reliable answer. "
+            "Please contact human support."
+        )
+
+    uncertainty_phrases = (
+        "i couldn't find",
+        "i could not find",
+        "i don't have enough information",
+        "i do not have enough information",
+        "the context does not specify",
+        "the information provided does not specify",
+        "please contact human support",
+        "please contact our human support team",
+        "i cannot determine",
+        "i can't determine",
+    )
+    needs_review = any(
+        phrase in answer.lower()
+        for phrase in uncertainty_phrases
     )
 
     return {
@@ -148,5 +157,5 @@ def answer_question(question: str):
             }
             for doc in relevant_documents
         ],
-        "requires_human_review": False,
+        "requires_human_review": needs_review,
     }

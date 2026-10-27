@@ -1,6 +1,6 @@
 
 # Simulated order data for development and testing.
-# Replace this with a real order-management API in production.
+# Replace this adapter with an authorized order-management API later.
 
 ORDERS = {
     "ORD-1001": {
@@ -24,17 +24,28 @@ ORDERS = {
 }
 
 
-def lookup_order(order_id: str, customer_id: str):
+def lookup_order(order_id: str, customer_id: str) -> dict:
     """Return an order only when both identifiers match."""
-    order = ORDERS.get(order_id.strip().upper())
 
-    if not order or order["customer_id"] != customer_id:
+    if not order_id or not customer_id:
+        return {
+            "found": False,
+            "message": "An order ID and customer ID are required.",
+        }
+
+    normalized_order_id = order_id.strip().upper()
+    normalized_customer_id = customer_id.strip()
+
+    order = ORDERS.get(normalized_order_id)
+
+    if not order or order["customer_id"] != normalized_customer_id:
         return {
             "found": False,
             "message": "Order not found for the supplied customer.",
         }
 
+    # Return a copy rather than exposing the stored dictionary.
     return {
         "found": True,
-        "order": order,
+        "order": order.copy(),
     }

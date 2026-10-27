@@ -2,31 +2,37 @@
 [ORDER POLICY]
 Customers can check order status using their order ID.
 Standard delivery usually takes 3 to 5 business days.
-If an order is delayed beyond the estimated delivery date, support should verify the order and investigate the delay.
+If an order is delayed beyond the estimated delivery date, support must verify the order and investigate the delay.
+Do not invent an order status or delivery date. Retrieve order information from the authorized order-management system before providing order-specific details.
 
 [REFUND POLICY]
 Customers may request a refund for duplicate payments, damaged items, or eligible cancelled orders.
 Refund eligibility must be verified before approval.
 Never promise that a refund has been issued unless the transaction has been confirmed.
 Refund requests requiring an account or payment change must be reviewed by an authorized human.
+The AI assistant must not approve or issue refunds.
 
 [CANCELLATION POLICY]
 Cancellation depends on the order's fulfillment status.
 Orders that have already shipped may not be cancellable.
 Verify the order status before confirming a cancellation.
 Escalate uncertain cases to human support.
+The AI assistant must not claim that an order has been cancelled unless the authorized order-management system confirms the cancellation.
 
 [PAYMENT POLICY]
 If a customer reports a duplicate charge, ask for the order ID and relevant transaction details.
 Do not request passwords, full card numbers, CVVs, or one-time passcodes.
-Payment disputes should be escalated to authorized support for investigation.
+Payment disputes must be escalated to authorized support for investigation.
+Never claim a payment has been refunded or reversed without confirmation from the authorized payment system.
 
 [ACCOUNT SECURITY]
 Never ask customers to disclose passwords or one-time passcodes.
 Account recovery and security-sensitive changes require identity verification through the approved process.
 Escalate suspected account compromise to human support.
+Do not disclose account information without appropriate authorization.
 
 [TECHNICAL SUPPORT]
 For basic troubleshooting, ask the customer to restart the application and check their internet connection.
 If the issue continues, collect the error message, device type, and application version.
 Escalate persistent issues that cannot be resolved using documented steps.
+Do not claim a technical issue has been fixed unless the outcome has been verified.
