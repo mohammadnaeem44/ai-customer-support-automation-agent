@@ -4,6 +4,10 @@ An AI-assisted customer support prototype built with **FastAPI, Groq, retrieval-
 
 > **Project status:** Portfolio/demo project. Order records are simulated. This is not a production customer-support system and should not be connected to real customer data without authentication, authorization, privacy controls, and production-grade persistence.
 
+<img width="899" height="852" alt="{918785CD-85B4-48D3-B296-D3BB81918E0D}" src="https://github.com/user-attachments/assets/56f46575-8b23-47da-b152-b0f69a605e1b" />
+<img width="907" height="856" alt="{F4E1A465-A229-4A7C-A48A-A563ADA0425D}" src="https://github.com/user-attachments/assets/f26c2cae-f8c9-47b4-bd4e-74662de78b5d" />
+<img width="898" height="843" alt="{A5863BD5-8AEB-490E-9E3A-354D93C176D3}" src="https://github.com/user-attachments/assets/eba7f2bb-7bbe-494e-8b2f-a1d2edb43516" />
+
 ## Contents
 
 - [Overview](#overview)
